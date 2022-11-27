@@ -132,6 +132,8 @@ body {
 
 .modal-body{
   padding: 10px 15px;
+  display: flex;
+  justify-content: space-around;
 }
 
 #overlay{
@@ -151,10 +153,21 @@ body {
   pointer-events: all;
 }
 
+.btn_add_p{
+  width: 5rem;
+}
+
+.p_name{
+  font-size: 1.5rem;
+}
 
 
-
-
+.project {
+  display: flex;
+  font-size: 1.5rem;
+  justify-content: center;
+  margin: 1.5rem;
+}
 
 
 

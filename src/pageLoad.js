@@ -2,17 +2,18 @@
 
 import { createHTMLElement } from './basic';
 
-const modal = createHTMLElement("div", "modal", "modal");
+
 const overlay = createHTMLElement("div", undefined, "overlay")
 const body = document.querySelector("body");
 const main_div = createHTMLElement("div", undefined, "content");
+const modal = createHTMLElement("div", "modal", "modal");
 
 
 
 const pageLoad = () => {
     main_div.append(createSidebar(), createUserField(),createModal(), overlay)
     body.append(createHeading(), main_div);
-    addModalListener();
+
 }
 
 const createSidebar = () => {
@@ -58,18 +59,21 @@ const createUserField = () =>{
 
 const createModal = () =>{
 
-    let modal_header = createHTMLElement("div", "modal-header");
-    let modal_title = createHTMLElement("div", "title", undefined, "Example");
-    let close_button = createHTMLElement("button", "close-button", undefined, "X")
+    const modal_header = createHTMLElement("div", "modal-header");
+    const modal_title = createHTMLElement("div", "title", undefined, "Add a new Project");
+    const close_button = createHTMLElement("button", "close-button", undefined, "X")
 
 
     modal_header.append(modal_title, close_button);
     
     
-    let modal_body = createHTMLElement("div", "modal-body", undefined, `
-    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, 
-    sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-    `);
+    const modal_body = createHTMLElement("div", "modal-body");
+
+    const project_name = createHTMLElement("input", "p_name");
+    const project_add_btt = createHTMLElement("button", "btn_add_p", undefined, "Add Project");
+
+
+    modal_body.append(project_name, project_add_btt);
 
 
     modal.append(modal_header, modal_body)
@@ -80,53 +84,53 @@ const createModal = () =>{
 }
 
 const buildTasks = (project) =>{
+    const tasks = document.querySelector(".tasks");
+    tasks.innerHTML = "";
 
     for(let i = 0; i < project.getLength(); i++){
         let task = createHTMLElement("div", `task ${i}`, undefined, project.showTodos()[i].title);
-        document.querySelector(".tasks").append(task)
+        tasks.append(task)
     }
-
 }
 
 const buildProjects = (projects) =>{
-    let div = document.querySelector(".projects");
+
+    const projects_div = document.querySelector(".projects");
+    projects_div.innerHTML = "";
 
     for (let i = 0; i < projects.length; i++){
-        let project = createHTMLElement("div", `project_${i}`, undefined, projects[i].returnName());
-        div.append(project);
+        let project = createHTMLElement("div", `project ${i}`, "project", projects[i].returnName());
+        project.dataset.num = i;
+        projects_div.append(project);
     }
 }
+
 
 const AddTask = (task) =>{
     let taskx = createHTMLElement("div", `task ${i}`, undefined, project.showTodos()[i].title);
     document.querySelector(".tasks").append(taskx);
 }
 
-const reloadTasks = (project) => {
-    document.querySelector(".tasks").innerHTML = "";
-    buildTasks(project);
-}
 
-const reloadProjects = (projects) =>{
-    document.querySelector(".projects").innerHTML = "";
-    buildProjects(projects);
+const changeModalVisibiliy = (state) =>{
 
-}
 
-const addModalListener = () =>{
-    const btt = document.getElementById("new_p_btt");
-    btt.addEventListener("click", () =>{
+    if (state) {
         modal.classList.add("active");
         overlay.classList.add("active");
-    })
+    }else{
+        modal.classList.remove("active");
+        overlay.classList.remove("active");
+    }
 
-    // Add close button 
+
+}
+
+
+const changeToProject = (e) =>{
+    console.log(e)
 }
 
 
 
-
-
-
-
-export { pageLoad, buildTasks, AddTask, reloadTasks, reloadProjects, buildProjects};
+export { pageLoad, buildTasks, AddTask, buildProjects, changeModalVisibiliy, changeToProject};

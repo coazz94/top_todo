@@ -1,8 +1,281 @@
 body {
-    background-image: url("https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+    background: url("https://images.unsplash.com/photo-1508615070457-7baeba4003ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80");
+    background-repeat: no-repeat;
     background-size: cover;
-    background-color: gray;
-    margin: 0;
+    /* background-color: rgb(204, 204, 204); */
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    color: whitesmoke;
+    color: aliceblue;
 }
+
+
+
+.heading{
+    display: flex;
+    /* border: 1px solid black; */
+    height: 15vh;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+#content{
+    display: flex;
+}
+
+.sidebar {
+    /* border: 1px solid blue; */
+    width: 15vw;
+    height: 82vh;
+    background: rgba(9, 91, 185, 0.2);
+    overflow: hidden;
+}
+
+#side_head{
+    display: flex;
+    /* border: 1px solid red; */
+    height: 10%;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    border-bottom: 1px solid grey;
+    overflow: hidden;
+}
+
+
+.container{
+    /* border: 1px solid red; */
+    width: 85vw;
+    padding: 5rem;
+  }
+
+
+.task_interface.hidden {
+    display:none 
+}
+
+
+.user_head{
+    /* border: 1px solid red; */
+    height: 5%;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+}
+
+.tasks{
+  /* border: 1px solid red; */
+}
+
+.task{
+  display: flex;
+  border: 1px solid rgb(0, 0, 0);
+  height: 2rem;
+  margin: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+
+/* modal */
+
+
+.modal {
+  position: fixed;
+  /* in the middle */
+  top:50%;
+  left: 50%;
+  /* scale0 = disapear */
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms ease-in-out;
+  border: 1px solid black;
+  border-radius: 10px;
+  /* over everything else */
+  z-index: 10;
+  background-color: white;
+  color: black;
+  /* sizing of it */
+  width: 500px;
+  max-width: 80%;
+}
+
+.modal.active{
+  transform: translate(-50%, -50%) scale(1);
+
+}
+
+
+
+.modal-header {
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.modal-header .title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.modal-header .close-button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.modal-body{
+  padding: 10px 15px;
+}
+
+#overlay{
+  transition: 200ms ease-in-out;
+  position: fixed;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,.5);
+  pointer-events: none;
+}
+
+#overlay.active{
+  opacity: 1;
+  pointer-events: all;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#button_div{
+    display: flex;
+    /* border: 1px solid red; */
+    height: 10%;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+  display: flex;
+  line-height: 50px;
+  height: 50px;
+  text-align: center;
+  width: 100%;
+  cursor: pointer;
+}
+
+.btn2 {
+  display: flex;
+  height: 3rem;
+  width: 10rem;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.btn_new_project {
+  display: flex;
+    color: #FFF;
+    transition: all 0.3s;
+    position: relative;
+    justify-content: center;
+  }
+
+.btn_add {
+  border: 1px solid black;
+  display: flex;
+  color: #FFF;
+  transition: all 0.3s;
+  position: relative;
+  justify-content: center;
+  margin-left: 80%;
+  margin-top: 2rem;
+  }
+  
+.btn_new_project span,
+.btn_add span {
+  transition: all 0.3s;
+}
+.btn_new_project::before,
+.btn_add::before{
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0;
+  transition: all 0.3s;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-top-style: solid;
+  border-bottom-style: solid;
+  border-top-color: rgba(255,255,255,0.5);
+  border-bottom-color: rgba(255,255,255,0.5);
+  transform: scale(0.1, 1);
+}
+
+.btn_new_project:hover span,
+.btn_add:hover span {
+  letter-spacing: 2px;
+}
+.btn_new_project:hover::before ,
+.btn_add:hover::before {
+  opacity: 1; 
+  transform: scale(1, 1); 
+}
+.btn_new_project::after,
+.btn_add::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  transition: all 0.3s;
+  background-color: rgba(255,255,255,0.1);
+}
+.btn_new_project:hover::after, 
+.btn_add:hover::after {
+  opacity: 0; 
+  transform: scale(0.1, 1);
+}
+
+  

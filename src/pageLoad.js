@@ -2,7 +2,7 @@
 
 import { createHTMLElement } from './basic';
 import {projects} from "./index";
-import {FilterProjects} from "./todos";
+import {FilterProjects, Todo} from "./todos";
 
 
 const overlay = createHTMLElement("div", undefined, "overlay")
@@ -195,6 +195,7 @@ const createNewTask = () => {
     const tasks = document.querySelector(".tasks");
     tasks.append(task);
 
+    return true;
 
 }
 
@@ -214,4 +215,20 @@ const getInfoInput = () =>{
 const removeInput = () =>{
     document.querySelector(".task.input").remove();
 }
-export { pageLoad, buildTasks, buildProjects, changeProjecModalVisibility, changeToProject, setProjectActive, createNewTask, getInfoInput, removeInput};
+
+
+const createInputFields = () =>{
+
+    let active_project = document.querySelector(".project.active").dataset.name;
+    const project = FilterProjects(projects, active_project);
+    console.log("called");
+
+    const info = getInfoInput();
+    const task = new Todo(info[0], "", info[1], "");
+    project.addToProject(task);
+    removeInput();
+    buildTasks(project);
+}
+
+
+export { pageLoad, buildTasks, buildProjects, changeProjecModalVisibility, changeToProject, setProjectActive, createNewTask, getInfoInput, removeInput, createInputFields};

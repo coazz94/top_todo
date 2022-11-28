@@ -1,6 +1,6 @@
 
 import {Project, Todo, FilterProjects } from "./todos";
-import {buildTasks, buildProjects, changeProjecModalVisibility, changeToProject, createNewTask, getInfoInput, removeInput} from './pageLoad';
+import {buildTasks, buildProjects, changeProjecModalVisibility, changeToProject, createNewTask, getInfoInput, removeInput, createInputFields} from './pageLoad';
 import {projects, today} from "./index";
 
 
@@ -16,23 +16,23 @@ const loadListeners = () => {
 
 const addTaskListener = () =>{
 
+
     document.querySelector(".btn2.btn_add").addEventListener("click", (e) => {
 
         // Listen for the next click
         e.stopPropagation()
 
-        let active_project = document.querySelector(".project.active").dataset.name;
-        const project = FilterProjects(projects, active_project);
-        createNewTask();
-        document.body.addEventListener("dblclick", (e) =>{
-            const info = getInfoInput();
-            const task = new Todo(info[0], "", info[1], "");
-            project.addToProject(task);
-            removeInput();
-            buildTasks(project);
-            //https://stackoverflow.com/questions/4402287/javascript-remove-event-listener
 
-        })
+
+        document.body.addEventListener("dblclick", () =>{
+            createInputFields();
+        });
+        
+
+            //https://stackoverflow.com/questions/4402287/javascript-remove-event-listener
+       
+
+        // document.body.removeEventListener("dblclick", () => createInputFields());
 
 
     });

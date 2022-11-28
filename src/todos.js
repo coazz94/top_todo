@@ -48,6 +48,9 @@ const CreatePlaceholder = (num, project) => {
 
 }
 
+const FilterProjects = (projects, project) =>{
+    return projects.find(proj => {return proj.returnName() === project});
+}
 
 
-export{Project, Todo, CreatePlaceholder}
+export{Project, Todo, CreatePlaceholder, FilterProjects}

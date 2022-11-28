@@ -1,12 +1,16 @@
 
 
 import { createHTMLElement } from './basic';
+import {projects} from "./index";
+import {FilterProjects} from "./todos";
 
 
 const overlay = createHTMLElement("div", undefined, "overlay")
 const body = document.querySelector("body");
 const main_div = createHTMLElement("div", undefined, "content");
 const modal = createHTMLElement("div", "modal", "modal");
+
+
 
 
 
@@ -88,7 +92,22 @@ const buildTasks = (project) =>{
     tasks.innerHTML = "";
 
     for(let i = 0; i < project.getLength(); i++){
-        let task = createHTMLElement("div", `task ${i}`, undefined, project.showTodos()[i].title);
+        // console.log(tasks)
+        // project.showTodos()[i].title
+        const task = createHTMLElement("div", `task ${i}`);
+        
+        const task_name = createHTMLElement("div", "task_name", undefined, project.showTodos()[i].title);
+
+        const task_checkbox = createHTMLElement("input", "check");
+        task_checkbox.type = "checkbox"
+
+        const date = createHTMLElement("text", "due_date");
+        date.textContent = "data";
+
+        const del_button = createHTMLElement("button", "del_btt", undefined, "X");
+        const edit_button = createHTMLElement("button", "edit_btt", undefined, "/");
+
+        task.append(task_checkbox, task_name, date, edit_button,del_button );
         tasks.append(task)
     }
 }
@@ -99,20 +118,13 @@ const buildProjects = (projects) =>{
     projects_div.innerHTML = "";
 
     for (let i = 0; i < projects.length; i++){
-        let project = createHTMLElement("div", `project ${i}`, "project", projects[i].returnName());
-        project.dataset.num = i;
+        let project = createHTMLElement("div", `project`, "project", projects[i].returnName());
+        project.dataset.name = projects[i].returnName();
         projects_div.append(project);
     }
 }
 
-
-const AddTask = (task) =>{
-    let taskx = createHTMLElement("div", `task ${i}`, undefined, project.showTodos()[i].title);
-    document.querySelector(".tasks").append(taskx);
-}
-
-
-const changeModalVisibiliy = (state) =>{
+const changeProjecModalVisibility = (state) =>{
 
 
     if (state) {
@@ -126,11 +138,80 @@ const changeModalVisibiliy = (state) =>{
 
 }
 
+const changeToProject = (project_name) =>{
+    // change class = user_head to project name ( first = "", than change)
+    // change tasks to ""
+    // build tasks acordin to proejct
 
-const changeToProject = (e) =>{
-    console.log(e)
+    // remove all actives
+    document.querySelectorAll("#project").forEach((proj) => {
+        proj.classList.remove("active")
+    })
+
+    // add this to active
+    const project_div = document.querySelector(`[data-name="${project_name}"]`);
+    project_div.classList.add("active");
+    
+    // Change hedaing of tasks
+    document.querySelector(".user_head").innerHTML = project_name;
+
+    // Delete tasks shwon
+    document.querySelector(".tasks").innerHTML = "";
+
+
+    const project = FilterProjects(projects, project_name);
+
+
+    // add Tasks accroding to project
+    buildTasks(project);
+
+}
+
+const setProjectActive = (project_name) =>{
+
+    let project = document.querySelector(`[data-name="${project_name}"]`);
+    project.classList.add("active");
+}
+
+const createNewTask = () => {
+
+
+    const task = createHTMLElement("div", `task input`);
+        
+    const task_name = createHTMLElement("input", "task_input_name");
+
+    const date = createHTMLElement("input", "due_input_date");
+    date.type = "date";
+
+    // const status_l = createHTMLElement("input", "status_l", undefined);
+    // status_l.type = "checkbox";
+    // const status_m = createHTMLElement("input", "status m");
+    // status_m.type = "checkbox";
+    // const status_h = createHTMLElement("input", "status h");
+    // status_h.type = "checkbox";
+
+    task.append( task_name, date);
+
+    const tasks = document.querySelector(".tasks");
+    tasks.append(task);
+
+
 }
 
 
 
-export { pageLoad, buildTasks, AddTask, buildProjects, changeModalVisibiliy, changeToProject};
+const getInfoInput = () =>{
+
+    const name = document.querySelector(".task_input_name").value;
+    const date = document.querySelector(".due_input_date").value;
+
+
+    return ([name, date]);
+}
+
+
+
+const removeInput = () =>{
+    document.querySelector(".task.input").remove();
+}
+export { pageLoad, buildTasks, buildProjects, changeProjecModalVisibility, changeToProject, setProjectActive, createNewTask, getInfoInput, removeInput};

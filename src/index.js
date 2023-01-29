@@ -1,5 +1,4 @@
-
-import { pageLoad, buildTasks, reloadTasks, reloadProjects, buildProjects, setProjectActive} from './pageLoad';
+import { pageLoad, buildTasks, buildProjects, setProjectActive} from './pageLoad';
 import {Project, CreatePlaceholder } from "./todos"
 import {loadListeners} from "./listeners"
 
